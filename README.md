@@ -1,6 +1,6 @@
 # E-Commerce-Application
 
-- The E-Commerce Application is built using Java and Spring Boot, with security, scalability, and ease of maintenance. The backend uses Spring Data JPA to interact with a MySQL database, making it easy to manage and store important entities such as users, products, categories, orders, and more. User authentication is handled by Auth0, providing secure and reliable means of REST APIs.
+- The E-Commerce Application is built using Java and Spring Boot, with security, scalability, and ease of maintenance. The backend uses Spring Data JPA to interact with a MySQL database, making it easy to manage and store important entities such as users, products, categories, orders, and more. User authentication is handled by Spring security, providing secure and reliable means of REST APIs.
 
 - The APIs are well-documented and easily accessible through Swagger UI, making it simple for developers to test and understand the various endpoints. Overall, this project provides secure Rest APIs to create a scalable platform for businesses to sell their products to customers.
 
@@ -21,7 +21,7 @@
 - Ordering products and fetching order status
 
 # Security
-- The API is secured using JSON Web Tokens (JWT) handled by Auth0. To access the API, you will need to obtain a JWT by authenticating with the /login endpoint. The JWT should then be passed in the Authorize option available in the Swagger-ui.
+- The API is secured using JSON Web Tokens (JWT) handled by JWTWebToken Libery. To access the API, you will need to obtain a JWT by authenticating with the /login endpoint. The JWT should then be passed in the Authorize option available in the Swagger-ui.
 
   ### Example:
   - Authorization: <your_jwt>
@@ -34,11 +34,11 @@
 - Spring Data JPA
 - Spring Security
 - JSON Web Tokens (JWT)
-- Auth0
+- JWTWebToken
 - Swagger UI
 
 # Running the app
-1. Clone the repository: git clone https://github.com/Sirajuddin135/E-Commerce-Application.git
+1. Clone the repository: git clone https://github.com/nawazquazi1/E-Commerce-Application.git
 2. Import the project into STS:
   - Click File > Import...
   - Select Maven > Existing Maven Projects and click Next
