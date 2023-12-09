@@ -38,7 +38,7 @@
 - Swagger UI
 
 # Running the app
-1. Clone the repository: git clone https://github.com/nawazquazi1/Project--E-Commerce--Rest--API--Spring--Boot
+1. Clone the repository: git clone https://github.com/nawazquazi1/Project--E-Commerce--Rest--API--Spring--Boot.git
 2. Import the project into STS:
   - Click File > Import...
   - Select Maven > Existing Maven Projects and click Next
