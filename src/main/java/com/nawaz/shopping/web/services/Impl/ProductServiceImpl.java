@@ -33,7 +33,8 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
+
 public class ProductServiceImpl implements ProductService {
 
 	private ProductRepo productRepo;
@@ -42,38 +43,30 @@ public class ProductServiceImpl implements ProductService {
 	private CartService cartService;
 	private FileService fileService;
 	private ModelMapper modelMapper;
-	@Value("${project.image}")
-	private String path;
+//	@Value('${project.image}')
 
+//	private String path="image/";
 	@Override
 	public ProductDTO addProduct(Long categoryId, Product product) {
 
 		Category category = categoryRepo.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
-
 		boolean isProductNotPresent = true;
-
 		List<Product> products = category.getProducts();
-
-		for (int i = 0; i < products.size(); i++) {
-			if (products.get(i).getProductName().equals(product.getProductName())
-					&& products.get(i).getDescription().equals(product.getDescription())) {
-
-				isProductNotPresent = false;
-				break;
-			}
-		}
+        for (Product value : products) {
+            if (value.getProductName().equals(product.getProductName())
+                    && value.getDescription().equals(product.getDescription())) {
+                isProductNotPresent = false;
+                break;
+            }
+        }
 
 		if (isProductNotPresent) {
 			product.setImage("default.png");
-
 			product.setCategory(category);
-
 			double specialPrice = product.getPrice() - ((product.getDiscount() * 0.01) * product.getPrice());
 			product.setSpecialPrice(specialPrice);
-
 			Product savedProduct = productRepo.save(product);
-
 			return modelMapper.map(savedProduct, ProductDTO.class);
 		} else {
 			throw new APIException("Product already exists !!!");
@@ -113,25 +106,17 @@ public class ProductServiceImpl implements ProductService {
 
 		Category category = categoryRepo.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
-
 		Sort sortByAndOrder = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending()
 				: Sort.by(sortBy).descending();
-
 		Pageable pageDetails = PageRequest.of(pageNumber, pageSize, sortByAndOrder);
-
 		Page<Product> pageProducts = productRepo.findAll(pageDetails);
-
 		List<Product> products = pageProducts.getContent();
-
-		if (products.size() == 0) {
+		if (products.isEmpty()) {
 			throw new APIException(category.getCategoryName() + " category doesn't contain any products !!!");
 		}
-
 		List<ProductDTO> productDTOs = products.stream().map(p -> modelMapper.map(p, ProductDTO.class))
 				.collect(Collectors.toList());
-
 		ProductResponse productResponse = new ProductResponse();
-
 		productResponse.setContent(productDTOs);
 		productResponse.setPageNumber(pageProducts.getNumber());
 		productResponse.setPageSize(pageProducts.getSize());
@@ -218,7 +203,7 @@ public class ProductServiceImpl implements ProductService {
 			throw new APIException("Product not found with productId: " + productId);
 		}
 		
-		String fileName = fileService.uploadImage(path, image);
+		String fileName = fileService.uploadImage("image/", image);
 		
 		productFromDB.setImage(fileName);
 		

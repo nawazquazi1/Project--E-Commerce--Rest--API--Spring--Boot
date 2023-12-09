@@ -123,11 +123,11 @@ public class UserServiceImpl implements UserService {
 	public UserDTO updateUser(Long userId, UserDTO userDTO) {
 		User user = userRepo.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "userId", userId));
-		String encodedPass = passwordEncoder.encode(userDTO.getPassword());
+//		String encodedPass = passwordEncoder.encode(userDTO.getPassword());
 		user.setUserName(userDTO.getUserName());
 		user.setMobileNumber(userDTO.getMobileNumber());
 		user.setEmail(userDTO.getEmail());
-		user.setPassword(encodedPass);
+//		user.setPassword(encodedPass);
 		if (userDTO.getAddress() != null) {
 			String country = userDTO.getAddress().getCountry();
 			String state = userDTO.getAddress().getState();

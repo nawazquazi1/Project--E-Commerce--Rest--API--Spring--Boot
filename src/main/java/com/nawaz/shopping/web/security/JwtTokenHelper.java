@@ -25,15 +25,7 @@ public class JwtTokenHelper {
 	public String getUsernameFromToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
 	}
-	
-	public Long getIdFromToken(String token) {
-	    return getClaimFromToken(token, claims -> claims.get("userId", Long.class));
-	}
-	
-	public String getSessionIdFromToken(String token) {
-	    return getClaimFromToken(token, claims -> claims.get("sessionId", String.class));
-	}
-	
+
 	// extract Expiration date from Token
 	private Date getExpirationDateFromToken(String token) {
 		return getClaimFromToken(token, Claims::getExpiration);

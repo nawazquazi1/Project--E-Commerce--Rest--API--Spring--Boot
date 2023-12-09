@@ -32,6 +32,8 @@ public class Product {
 	private String description;
 	
 	private Integer quantity;
+//	@NotBlank(message = "price should be greater thane 0")
+	@Column(nullable = false)
 	private double price;
 	private double discount;
 	private double specialPrice;
